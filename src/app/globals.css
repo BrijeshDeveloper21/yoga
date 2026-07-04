@@ -1,26 +1,104 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+  --font-heading: var(--font-heading);
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-accent: var(--accent);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+:root {
+  --background: #0a0907;
+  --foreground: #f5ede0;
+  --primary: #c4a46b;
+  --secondary: #110f0c;
+  --accent: #c4a46b;
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Premium Noise Texture */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 9999;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.8%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E");
+  opacity: 0.02;
+  mix-blend-mode: overlay;
+}
+
+/* Custom Scrollbar for a premium feel */
+* { scrollbar-width: none; }
+*::-webkit-scrollbar { display: none; }
+
+/* Lenis recommended css */
+html.lenis, html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+/* ========== PREMIUM 3D ANIMATIONS ========== */
+@keyframes floatUp {
+  from { transform: translateY(0px) translateX(0px) scale(1); }
+  to   { transform: translateY(-28px) translateX(12px) scale(1.06); }
+}
+@keyframes floatDown {
+  from { transform: translateY(0px) translateX(0px); }
+  to   { transform: translateY(22px) translateX(-18px); }
+}
+@keyframes slowSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+@keyframes breathe {
+  0%, 100% { transform: scale(1);    opacity: 0.07; }
+  50%       { transform: scale(1.07); opacity: 0.11; }
+}
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 20px rgba(196,164,107,0.18); }
+  50%       { box-shadow: 0 0 55px rgba(196,164,107,0.48), 0 0 110px rgba(196,164,107,0.16); }
+}
+@keyframes rippleOut {
+  0%   { transform: translate(-50%,-50%) scale(0.6); opacity: 0.6; }
+  100% { transform: translate(-50%,-50%) scale(2.4); opacity: 0; }
+}
+@keyframes scrollLine {
+  0%   { transform: translateY(-100%); }
+  100% { transform: translateY(300%); }
+}
+
+/* Smooth transitions for all elements */
+html {
+  scroll-behavior: smooth;
 }
